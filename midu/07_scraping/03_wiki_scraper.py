@@ -13,33 +13,30 @@ def scrape_url(url: str):
 
     soup = BeautifulSoup(response.text, 'html.parser')
 
-    # Extraer todos los
-    titulos = [titulo.string for titulo in soup.find_all('h1')]
+    # # Extraer todos los
+    # titulos = [titulo.string for titulo in soup.find_all('h1')]
     # print(titulos)
 
-    # Extraer todos los enlaces <a>
-    enlaces = [urljoin(url, enlace.get('href')) for enlace in soup.find_all('a')]
+    # # Extraer todos los enlaces <a>
+    # enlaces = [urljoin(url, enlace.get('href')) for enlace in soup.find_all('a')]
     # print(enlaces)
 
-    # extraer todo el contenido de la página de texto
-    # all_text = soup.get_text()
-    # print(all_text)
-
-    # extraer el texto del elemento main
+    # # extraer el texto del elemento main
     # main_text = soup.find('main').get_text()
     # print(main_text)
 
-    # extraer de la id mw-content-text
+
+    # # extraer de la id mw-content-text
     # content_text = soup.find('div', {'id': 'mw-content-text'}).get_text()
     # print(content_text)
 
-    # extrar el open graph si existe
+    # # extrar el open graph si existe
     # og_image = soup.find('meta', {'property': 'og:image'})
     
-    og_image = soup.find('meta', property='og:image')
-    if og_image:
-      print(og_image['content'])
-    else:
-      print('No se encontró la imagen')
+    # og_image = soup.find('meta', property='og:image')
+    # if og_image:
+    #   print(og_image['content'])
+    # else:
+    #   print('No se encontró la imagen')
 
-scrape_url('https://midu.dev')
+scrape_url('https://es.wikipedia.org/wiki/Oviedo')

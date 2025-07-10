@@ -8,7 +8,7 @@ from os import system
 if system("clear") != 0: system("cls")
 
 # Para asignar una variable solo hace falta poner el nombre de la variable y asignarle un valor
-my_name = "midudev"
+my_name = "Sergio"
 print(my_name)  # Imprime el valor de la variable my_name
 
 age = 32
@@ -20,7 +20,7 @@ print(age)  # Ahora la variable age tiene el valor 39
 
 # Tipado dinámico: el tipo de dato se determine en tiempo de ejecución
 # No es necesario declarar explícitamente el tipo de variable
-name = "midudev"
+name = "Sergio"
 print(type(name))  # Muestra el tipo de dato de la variable name (str)
 
 name = 32

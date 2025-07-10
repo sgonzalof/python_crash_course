@@ -8,7 +8,7 @@ from os import system
 if system("clear") != 0: system("cls")
 
 # Creación de listas
-print("\nCrear listas")
+print("\033[92m \n\nCrear listas\033[0m")
 lista1 = [1, 2, 3, 4, 5] # lista de enteros
 lista2 = ["manzanas", "peras", "plátanos"] # lista de cadenas
 lista3 = [1, "hola", 3.14, True] # lista de tipos mixtos
@@ -25,7 +25,7 @@ print(lista_de_listas)
 print(matrix)
 
 # Acceso a elementos por índice
-print("\nAcceso a elementos por índice")
+print("\033[92m \n\n\nAcceso a elementos por índice\033[0m")
 print(lista2[0])  # manzanas
 print(lista2[1])  # peras
 print(lista2[-1]) # plátanos
@@ -34,6 +34,7 @@ print(lista2[-2]) # peras
 print(lista_de_listas[1][0])
 
 # Slicing (rebanado) de listas
+print("\033[92m \n\n\nSlicing\033[0m")
 lista1 = [1, 2, 3, 4, 5]
 print(lista1[1:4]) # [2, 3, 4]
 print(lista1[:3]) # [1, 2, 3]
@@ -41,15 +42,18 @@ print(lista1[3:]) # [4, 5]
 print(lista1[:]) # [1, 2, 3, 4, 5]
 
 # El tercer parámetro es el paso (step)
+print("\033[92m \n\n\nStep\033[0m")
 lista1 = [1, 2, 3, 4, 5, 6, 7, 8]
 print(lista1[::2]) # para devolver índices pares
 print(lista1[::-1]) # para devolver índices inversos
 
 # Modificar una lista
+print("\033[92m \n\n\nModificar una lista\033[0m")
 lista1[0] = 20
 print(lista1)
 
 # Añadir elementos a una lista
+print("\033[92m \n\n\nAñadir elementos\033[0m")
 lista1 = [1, 2, 3]
 
 # forma larga y menos eficiente
@@ -61,8 +65,9 @@ lista1 += [7, 8, 9]
 print(lista1)
 
 
-
 ### MÉTODOS DE LISTAS ###
+
+print("\033[92m \n\n\nMÉTODOS DE LISTAS\033[0m")
 
 # Recuperar longitud de una lista
 print("Longitud de la lista", len(lista1))
@@ -104,6 +109,7 @@ del lista1[1:3] # eliminamos los elementos del índice 1 al 3 (no incluye el ín
 print(lista1)
 
 # Más métodos útiles
+print("\033[92m \n\n\nMás métodos\033[0m")
 print('Ordenar listas modificando la original')
 numbers = [3, 10, 2, 8, 99, 101]
 numbers.sort()
@@ -133,6 +139,22 @@ print('🐹' in animals) # -> False
 
 
 
+### TUPLAS ###
+
+"""Tuplas son secuencias inmutables de elementos.
+Pueden contener elementos de diferentes tipos."""
+my_tuple = tuple()
+my_other_tuple = ()
+print("\033[92m \n\n\nTuplas\033[0m")
+print(my_tuple)
+
+### SETS ###
+"""Sets son colecciones no ordenadas de elementos únicos.
+No permiten duplicados y no tienen un orden específico."""
+my_set = set()
+my_other_set = {}
+print ("\033[92m \n\n\nSets\033[0m")
+print(my_set)
 
 
 ###

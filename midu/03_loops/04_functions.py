@@ -50,12 +50,12 @@ if system("clear") != 0: system("cls")
 # print(multiplicar(2, 3))
 
 # Argumentos por posición
-def describir_persona(nombre: str, edad: int, sexo: str):
-  print(f"Soy {nombre}, tengo {edad} años y me identifico como {sexo}")
+def describir_persona(nombre: str, edad: int, ciudad: str):
+  print(f"Soy {nombre}, tengo {edad} años y vivo en {ciudad}")
 
 # parámetros son posicionales
 describir_persona(1, 25, "gato")
-describir_persona("midudev", 25, "gato")
+describir_persona("Sergio", 25, "gato")
 describir_persona("hombre", "madeval", 39)
 
 # Argumentos por clave
@@ -79,7 +79,7 @@ def mostrar_informacion_de(**kwargs):
   for clave, valor in kwargs.items():
     print(f"{clave}: {valor}")
 
-mostrar_informacion_de(nombre="midudev", edad=25, sexo="gato")
+mostrar_informacion_de(nombre="Sergio", edad=32, sexo="gato")
 print("\n")
 mostrar_informacion_de(name="madeval", edad=21, country="Uruguay")
 print("\n")

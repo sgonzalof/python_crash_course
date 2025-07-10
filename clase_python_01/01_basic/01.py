@@ -1,3 +1,48 @@
+# HELLO WORLD
+print("Hello, World!")
+# This is a comment
+"""This is a multi-line comment
+that spans multiple lines."""
+
+
+# Variables
+name = "Sergio"
+surname = "Gonzalo"
+age = 32
+height = 1.75
+uses_glasses = True
+
+
+# Print variables
+print("Name:", name)
+print("Surname:", surname)
+print("Age:", age)  
+print("Height:", height)
+
+print(f'My name is {name}, I am {age} years old and my height is {height} meters.')
+
+print(
+    f'My name is {name}, I am {age} years old '
+    f'and my height is {height} meters.'
+)
+
+
+
+# Inputs
+name = input('¿Cuál es tu nombre? ')
+age = input('¿Cuántos años tienes? ')
+print(name)
+print(age)
+
+
+# Types
+print("Type of name:", type(name))
+print("Type of age:", type(age))
+print("Type of height:", type(height))
+print("Type of uses_glasses:", type(uses_glasses))
+
+
+
 
 ### Strings ###
 
@@ -16,8 +61,6 @@ print(my_tab_string)
 
 my_scape_string = "\\tEste es un String \\n escapado"
 print(my_scape_string)
-
-# Formateo
 
 name, surname, age = "Brais", "Moure", 35
 print("Mi nombre es {} {} y mi edad es {}".format(name, surname, age))
@@ -62,3 +105,4 @@ print(language.lower())
 print(language.lower().isupper())
 print(language.startswith("Py"))
 print("Py" == "py")  # No es lo mismo
+

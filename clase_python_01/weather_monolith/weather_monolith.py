@@ -1,7 +1,7 @@
 import requests
 from datetime import date
 
-API_KEY = "TU_API_KEY_AQUI"  # Pon aquí tu clave real de OpenWeather
+API_KEY = "8307a29631b931fb73f2475ab1f2e514"  # Pon aquí tu clave real de OpenWeather
 
 def get_weather(city, forecast_date):
     url = "http://api.openweathermap.org/data/2.5/forecast"

@@ -10,16 +10,28 @@ HEADERS = {
 
 def list_proxies_proxyscrape():
 
-    url = "https://api.proxyscrape.com/v4/free-proxy-list/get?request=get_proxies&skip=0&proxy_format=protocolipport&format=json"
+    url = "https://api.proxyscrape.com/v4/free-proxy-list/get?request=get_proxies&skip=0&proxy_format=protocolipport&format=json"      
+    proxies = []
     try:
         response = requests.get(url, headers=HEADERS, timeout=10)
         response.raise_for_status()
-        proxies = response.text.splitlines()
+        proxies = response.text
         return proxies
+    
+
     except requests.RequestException as e:
         print(f"Error fetching proxy list: {e}")
         return []
     
+    for key, value in response[proxies].items():
+        if value["anonymity"] == "elite":
+            proxies.append(proxy)
+    return {
+        "origen": "ProxyScrape:",
+        "lista": proxies
+    }
+    
+
 
 
 def free_proxie_list():
@@ -49,4 +61,5 @@ def free_proxie_list():
 
 
 
-print(free_proxie_list())
+print("Proxies from ProxyScrape:")
+pprint(list_proxies_proxyscrape())

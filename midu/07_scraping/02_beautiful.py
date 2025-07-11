@@ -31,5 +31,5 @@ if response.status_code == 200:
   products = soup.find_all(class_='rc-productselection-item')
   for product in products:
     name = product.find(class_="list-title").text
-    price = product.find(class_="rc-prices-fullprice").attrs
+    price = product.find('span', class_="rc-prices-fullprice").text
     print(f"El producto con las características:\n {name}\nPrecio de {price}\n\n")

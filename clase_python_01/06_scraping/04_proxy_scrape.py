@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 from config import *
 
 
+<<<<<<< HEAD
 
 
 
@@ -41,6 +42,23 @@ def proxy_scrape():
         return {"origen": "ProxyScrape:",
                 "lista": elite_proxies
                }
+=======
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+    }
+
+def list_proxies_proxyscrape():
+
+    url = "https://api.proxyscrape.com/v4/free-proxy-list/get?request=get_proxies&skip=0&proxy_format=protocolipport&format=json"      
+    proxies = []
+    try:
+        response = requests.get(url, headers=HEADERS, timeout=10)
+        response.raise_for_status()
+        proxies = response.text
+        return proxies
+    
+
+>>>>>>> 29a7c7b122034283fa5d2a9809879373078b15c7
     except requests.RequestException as e:
         print(f"Error fetching proxy list: {e}")
         return []
@@ -48,6 +66,15 @@ def proxy_scrape():
         print(f"Error procesando la respuesta: {e}")
         return []
     
+    for key, value in response[proxies].items():
+        if value["anonymity"] == "elite":
+            proxies.append(proxy)
+    return {
+        "origen": "ProxyScrape:",
+        "lista": proxies
+    }
+    
+
 
 
 def free_proxie():
@@ -55,13 +82,14 @@ def free_proxie():
     r = requests.get("https://free-proxy-list.net/", headers=HEADERS, timeout=10)
 
     soup = BeautifulSoup(r.text, "html.parser")
-
     lines = soup.find("tbody").find_all("tr")
     proxies = []
     for line in lines:
         values = line.find_all("td")
+        # print(values)
         proxy_ip = values[0].text
         proxy_port = values[1].text
+<<<<<<< HEAD
         proxy_country = values[3].text
         proxy_anonymity = values[4].text
         proxy_https = values[6].text     
@@ -204,3 +232,23 @@ if __name__ == "__main__":
     # print(f"{GREEN}Proxies{CYAN}: {proxies}{RESET}")
     print(f"{MAGENTA}TOTAL: {n_proxies_total}{RESET}")
     print(f"{YELLOW}Tiempo total: {time.time() - start} segundos{RESET}")
+=======
+        proxy_type = values[4].text
+
+        if proxy_type == "elite proxy":
+            proxy = f'{proxy_ip}:{proxy_port}'
+            proxies.append(proxy)
+
+    return {
+        "origen": "Free Proxy List:",
+        "lista": proxies
+    }
+
+
+
+
+
+
+print("Proxies from ProxyScrape:")
+pprint(list_proxies_proxyscrape())
+>>>>>>> 29a7c7b122034283fa5d2a9809879373078b15c7

@@ -18,10 +18,7 @@ class User(BaseModel):
     age: int
 
 
-users_list = [User(id=1, name="Sergio", surname="Gonzalo", url="https://google.es", age=32),
-              User(id=2, name="Moure", surname="Dev",
-                   url="https://mouredev.com", age=35),
-              User(id=3, name="Brais", surname="Dahlberg", url="https://haakon.com", age=33)]
+users_list = [User(id=1, name="Sergio", surname="Gonzalo", url="https://github.com/sgonzalof", age=32)]
 
 
 # @router.get("/usersjson")
@@ -51,7 +48,7 @@ async def user(id: int):
 
 
 @router.post("/user/", response_model=User, status_code=201)
-async def user(user: User):
+async def user(user: User):  
     if type(search_user(user.id)) == User:
         raise HTTPException(status_code=404, detail="El usuario ya existe")
 

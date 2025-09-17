@@ -1,9 +1,34 @@
-import concurrent.futures
+from fastapi import APIRouter
+
+
 import requests
 import time
-from pprint import pprint
 from bs4 import BeautifulSoup
-from config import *
+import concurrent.futures
+from pprint import pprint
+
+# Definición de colores ANSI
+RED = "\033[31m"
+GREEN = "\033[32m"
+YELLOW = "\033[33m"
+BLUE = "\033[34m"
+MAGENTA = "\033[35m"
+CYAN = "\033[36m"
+WHITE = "\033[37m"
+RESET = "\033[0m"
+
+
+# Headers para las peticiones
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+}
+
+
+router = APIRouter(prefix="/proxy",
+                   tags=["proxy"],
+                   responses={404: {"message": "No encontrado"}})
+
+
 
 
 
@@ -11,7 +36,6 @@ from config import *
 
 
 def proxy_scrape():
-
     url = "https://api.proxyscrape.com/v4/free-proxy-list/get?request=display_proxies&proxy_format=protocolipport&format=json"
     try:
         response = requests.get(url, headers=HEADERS, timeout=10)
@@ -19,45 +43,30 @@ def proxy_scrape():
         data = response.json()
         elite_proxies = []
         
-        # for proxy in data['proxies']:
-        #     if proxy.get('anonymity') == 'elite':
-        #         city = proxy['ip_data'].get('city')
-        #         country = proxy['ip_data'].get('country')
-
-        #         if proxy['anonymity'] == 'elite':
-        #             # elite_proxies.append(f"{proxy['ip']}:{proxy['port']}, city:{city}, country:{country}, anonymity:{proxy['anonymity']}")
-        #             elite_proxies.append(f"{proxy['ip']}:{proxy['port']}")
-
         for p in data['proxies']:
-            # Guardamos los proxies como diccionarios para mantener la información del protocolo
             if p.get('anonymity') == 'elite':
                 elite_proxies.append({
                     "protocol": p['protocol'],
                     "proxy": f"{p['ip']}:{p['port']}"
                 })
 
+        return {
+            "origen": "ProxyScrape:",
+            "lista": elite_proxies
+        }
 
-        # print (f"{WHITE}Proxies obtenidos: {BLUE}{len(elite_proxies)}, {YELLOW}Free Proxy List")
-        # pprint(elite_proxies)
-        return {"origen": "ProxyScrape:",
-                "lista": elite_proxies
-               }
     except requests.RequestException as e:
         print(f"Error fetching proxy list: {e}")
-        return []
+        return {
+            "origen": "ProxyScrape:",
+            "lista": []
+        }
     except Exception as e:
         print(f"Error procesando la respuesta: {e}")
-        return []
-    
-    for key, value in response[proxies].items():
-        if value["anonymity"] == "elite":
-            proxies.append(proxy)
-    return {
-        "origen": "ProxyScrape:",
-        "lista": proxies
-    }
-    
-
+        return {
+            "origen": "ProxyScrape:", 
+            "lista": []
+        }
 
 
 def free_proxie():
@@ -100,18 +109,23 @@ def free_proxie():
 def proxie_to_list():
     proxies = []
 
+    # Obtener proxies de ProxyScrape
     req = proxy_scrape()
-    print(f'{WHITE}Proxies obtenidos: {BLUE}{len(req["lista"])}, {req["origen"]}{RESET}')
-    proxies.extend(req["lista"])
+    if isinstance(req, dict) and "lista" in req:  # Verificar que req sea un diccionario válido
+        print(f'{WHITE}Proxies obtenidos: {BLUE}{len(req["lista"])}, {req["origen"]}{RESET}')
+        proxies.extend(req["lista"])
+    else:
+        print(f'{RED}Error obteniendo proxies de ProxyScrape{RESET}')
 
+    # Obtener proxies de Free Proxy List
     req = free_proxie()
-    print(f'{WHITE}Proxies obtenidos: {BLUE}{len(req["lista"])}, {req["origen"]}{RESET}')
-    proxies.extend(req["lista"])
+    if isinstance(req, dict) and "lista" in req:  # Verificar que req sea un diccionario válido
+        print(f'{WHITE}Proxies obtenidos: {BLUE}{len(req["lista"])}, {req["origen"]}{RESET}')
+        proxies.extend(req["lista"])
+    else:
+        print(f'{RED}Error obteniendo proxies de Free Proxy List{RESET}')
 
-
-    # proxies = list(set(proxies))
-
-    # Deduplicar proxies basados en la cadena 'proxy' (ip:port)
+    # Deduplicar proxies
     unique_proxies = {}
     for p in proxies:
         unique_proxies[p['proxy']] = p
@@ -214,3 +228,25 @@ if __name__ == "__main__":
     # print(f"{GREEN}Proxies{CYAN}: {proxies}{RESET}")
     print(f"{MAGENTA}TOTAL: {n_proxies_total}{RESET}")
     print(f"{YELLOW}Tiempo total: {time.time() - start} segundos{RESET}")
+
+
+
+@router.get("/")
+async def proxies():
+    proxies = proxie_to_list()
+    n_proxies_total = len(proxies)
+    working_proxies = filter_proxies(proxies)
+    n_proxies_working = len(working_proxies)
+
+    if n_proxies_working > 0:
+        return {
+            "total_proxies": n_proxies_total,
+            "working_proxies": n_proxies_working,
+            "proxies": working_proxies
+        }
+    else:
+        return {
+            "total_proxies": n_proxies_total,
+            "working_proxies": 0,
+            "proxies": []
+        }

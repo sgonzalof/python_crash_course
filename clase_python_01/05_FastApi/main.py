@@ -5,8 +5,14 @@
 
 # Instala FastAPI: pip install "fastapi[all]"
 
+# uvicorn es un servidor ASGI para ejecutar aplicaciones FastAPI
+# Instala uvicorn: pip install "uvicorn[standard]"
+# Inicia el server: uvicorn main:app --reload
+
 from fastapi import FastAPI
-from routers import products, users
+
+from routers import products, users, proxy_api
+# from routers import basic_auth_users, jwt_auth_users, users_db
 #basic_auth_users, jwt_auth_users, users_db
 #from fastapi.staticfiles import StaticFiles
 
@@ -29,6 +35,8 @@ app.include_router(users.router)
 # app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
+app.include_router(proxy_api.router)
+
 # Url local: http://127.0.0.1:8000
 
 
@@ -41,7 +49,7 @@ async def root():
 
 @app.get("/url")
 async def url():
-    return {"url": "https://mouredev.com/python"}
+    return {"url": "https://python.org"}
 
 # Inicia el server: uvicorn main:app --reload
 # Detener el server: CTRL+C

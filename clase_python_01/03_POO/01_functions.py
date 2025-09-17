@@ -3,33 +3,34 @@
 # Bloques de código reutilizables y parametrizables para hacer tareas especificas
 ###
 
-from os import system
-if system("clear") != 0: system("cls")
+# from os import system
+# if system("clear") != 0: system("cls")
 
-# """ Definición de una función
+#  """ 
+#  Definición de una función
 
 # def nombre_de_la_funcion(parametro1, parametro2, ...):
 #   # docstring
 #   # cuerpo de la función
 #   return valor_de_retorno # opcional
 
-# """
+#  """
 
-# # Ejemplo de una función para imprimir algo en consola
-# def saludar():
-#   print("¡Hola!")
+# Ejemplo de una función para imprimir algo en consola
+def saludar():
+  print("¡Hola!")
 
-# print("\n\n\n")
-# # Ejemplo de una función con parámetro
-# def saludar_a(nombre):
-#   print(f"¡Hola {nombre}!")
+print("\n\n\n")
+# Ejemplo de una función con parámetro
+def saludar_a(nombre):
+  print(f"¡Hola {nombre}!")
 
-# saludar_a("midudev")
-# saludar_a("madeval")
-# saludar_a("pheralb")
-# saludar_a("felixicaza")
-# saludar_a("Carmen Ansio")
-# print("\n\n\n")
+saludar_a("midudev")
+saludar_a("madeval")
+saludar_a("pheralb")
+saludar_a("felixicaza")
+saludar_a("Carmen Ansio")
+print("\n\n\n")
 
 # # Funciones con más parámetros
 # def sumar(a, b):
@@ -55,14 +56,14 @@ if system("clear") != 0: system("cls")
 # print("\n\n\n")
 
 
-# # Argumentos por posición
-# def describir_persona(nombre: str, edad: int, ciudad: str):
-#   print(f"Soy {nombre}, tengo {edad} años y vivo en {ciudad}")
+# Argumentos por posición
+def describir_persona(nombre: str, edad: int, ciudad: str):
+  print(f"Soy {nombre}, tengo {edad} años y vivo en {ciudad}")
 
-# # parámetros son posicionales
-# describir_persona(1, 25, 3)
-# describir_persona("Sergio", 32, "Oviedo")
-# describir_persona("Oviedo", "Sergio", 39)
+# parámetros son posicionales
+describir_persona(1, 25, 3)
+describir_persona("Sergio", 32, "Oviedo")
+describir_persona("Oviedo", "Sergio", 39)
 
 # # Argumentos por clave
 # # parámetros nombrados
@@ -86,6 +87,21 @@ if system("clear") != 0: system("cls")
 # def mostrar_informacion_de(**kwargs):
 #   for clave, valor in kwargs.items():
 #     print(f"{clave}: {valor}")
+
+
+
+# ### Lambdas ###
+
+# sum_two_values = lambda first_value, second_value: first_value + second_value
+# print(sum_two_values(2, 4))
+
+# multiply_values = lambda first_value, second_value: first_value * second_value - 3
+# print(multiply_values(2, 4))
+
+# def sum_three_values(value):
+#     return lambda first_value, second_value: first_value + second_value + value
+
+# print(sum_three_values(5)(2, 4))
 
 # mostrar_informacion_de(nombre="Sergio", edad=32, sexo="hombre")
 # print("\n")

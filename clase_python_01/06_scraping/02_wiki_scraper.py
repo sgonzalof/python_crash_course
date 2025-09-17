@@ -4,7 +4,7 @@ import requests
 
 def scrape_url(url: str):
   headers = {
-    'User-Agent': 'Mozilla/5.0 AppleWebKit/537.36 (KHTML, like Gecko; compatible; Googlebot/2.1; +http://www.google.com/bot.html) Chrome/131.0.0 Safari/537.36'
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36'
   }
   response = requests.get(url, headers=headers)
 
@@ -41,5 +41,7 @@ def scrape_url(url: str):
       print(og_image['content'])
     else:
       print('No se encontró la imagen')
+  else:
+    print(f'Error al hacer la petición: {response.status_code}')    
 
 scrape_url('https://es.wikipedia.org/wiki/Oviedo')
